@@ -10,5 +10,5 @@ class ValueType(ABC):
         self.v = v
 
     @abstractmethod
-    def to_str(self) -> str:
+    def to_str(self) -> str:  # pragma: no cover
         pass
