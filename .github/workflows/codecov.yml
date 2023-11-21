@@ -3,7 +3,7 @@ name: CI
 on: [push, pull_request, workflow_dispatch]
 
 jobs:
-  ci:
+  coverage:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
@@ -11,7 +11,7 @@ jobs:
       - name: Install library
         run: pip install pandas pytest pytest-cov
       - name: Run test
-        run: pytest --cov=pandaq --code-report=xml tests
+        run: pytest --cov=pandaq --cov-report=xml tests/
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
         env:
