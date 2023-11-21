@@ -18,4 +18,4 @@ jobs:
       - name: Install library
         run: pip install pandas pytest
       - name: Run test
-        run: pytest --cov=pandaq tests/
+        run: pytest tests/
