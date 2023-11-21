@@ -1,0 +1,10 @@
+{
+    "name": "pandaq-devcontainer",
+    "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+    "features": {
+        "ghcr.io/devcontainers/features/python:1": {
+          "version": "3.10"
+        }
+    },
+    "postCreateCommand": "pip3 install --user pandas"
+}
