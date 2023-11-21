@@ -1,6 +1,8 @@
 """utils."""
 import datetime as dt
 
+from typing import Union
+
 
 def join_and(qlist: list, no_paren=False) -> str:
     text = " & ".join(qlist)
@@ -18,7 +20,7 @@ def join_or(qlist: list, no_paren=False) -> str:
         return f"({text})"
 
 
-def dtime_to_str(dtime: dt.date | dt.datetime) -> str:
+def dtime_to_str(dtime: Union[dt.date, dt.datetime]) -> str:
     if isinstance(dtime, dt.datetime):
         format = "%Y-%m-%d %H:%M:%S"
         if dtime.microsecond > 0:
