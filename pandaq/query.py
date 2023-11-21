@@ -1,4 +1,4 @@
-"""PandaQ: Pandas DataFrame query."""
+"""pandaq: An alternative pandas query."""
 from __future__ import annotations
 
 import datetime as dt
@@ -8,6 +8,7 @@ from pandaq import utils, vtypes
 
 
 class Q(str):
+    """Query string builder."""
     def __new__(cls, qlist: Optional[list] = None):
         _qlist = qlist or []
         query = utils.join_and(_qlist, no_paren=True)
@@ -15,8 +16,17 @@ class Q(str):
         self._qlist = _qlist
         return self
 
+    def __init__(self, _: Optional[list] = None):
+        super().__init__()
+        self._qlist: list[str]
+
     def q(self, *args, **kwargs):
-        """query."""
+        """Convert args to the query string of pd.DataFrame.query
+
+        Args:
+            *args:
+            **kwargs:
+        """
         if len(args) == 0:
             qdict = kwargs
         elif len(args) == 1 and isinstance(args[0], dict):
