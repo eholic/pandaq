@@ -13,7 +13,7 @@ jobs:
       - name: Install pandaq
         run: pip install .
       - name: Run test
-        run: pytest --cov=pandaq --cov-report=xml tests/
+        run: pytest --cov=src/pandaq --cov-report=xml tests/
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
         env:
