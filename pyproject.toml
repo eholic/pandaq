@@ -44,6 +44,11 @@ dev-dependencies = [
     "ruff>=0.1.6",
 ]
 
+[tool.pytest.ini_options]
+pythonpath = [
+  "src"
+]
+
 [tool.ruff]
 target-version = "py39"
 select = [
