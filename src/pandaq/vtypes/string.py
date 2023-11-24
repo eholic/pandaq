@@ -1,6 +1,7 @@
-from pandaq.vtypes.base import ValueType
-from pandaq import config
 from dataclasses import dataclass, fields
+
+from pandaq import config
+from pandaq.vtypes.base import ValueType
 
 
 class String(ValueType):
@@ -30,7 +31,8 @@ class StringPrefix:
     def _prefixes(self):
         pfxs = [getattr(self, f.name) for f in fields(self)]
         if len(pfxs) != len(set(pfxs)):
-            raise Exception("prefixes must be unique.")
+            msg = "prefixes must be unique."
+            raise Exception(msg)
         return pfxs
 
     def splitprefix(self, text: str):

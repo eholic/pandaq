@@ -1,5 +1,5 @@
-from pandaq.vtypes.base import ValueType
 from pandaq import utils
+from pandaq.vtypes.base import ValueType
 
 
 class DateTimes(ValueType):

@@ -1,22 +1,22 @@
-"""pandaq: An alternative pandas query."""
+"""pandaq: An easy pandas query builder."""
 from __future__ import annotations
 
 import datetime as dt
-from typing import Any, Optional
+from typing import Any
 
 from pandaq import utils, vtypes
 
 
 class Q(str):
     """Query string builder."""
-    def __new__(cls, qlist: Optional[list] = None):
+    def __new__(cls, qlist: list|None = None):
         _qlist = qlist or []
         query = utils.join_and(_qlist, no_paren=True)
         self = str.__new__(cls, query)
         self._qlist = _qlist
         return self
 
-    def __init__(self, _: Optional[list] = None):
+    def __init__(self, _: list|None = None):
         super().__init__()
         self._qlist: list[str]
 
@@ -35,7 +35,8 @@ class Q(str):
                 arg_dict[f"`{k}`"] = v
             qdict = {**arg_dict, **kwargs}
         else:
-            raise Exception("argument must be single dict or keyword arguments.")
+            msg = "argument must be single dict or keyword arguments."
+            raise Exception(msg)
         self._qlist.append(self._qdict_to_str(qdict))
         return Q(self._qlist)
 
