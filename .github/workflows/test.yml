@@ -17,5 +17,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Install library
         run: pip install pandas pytest
+      - name: Install pandaq
+        run: pip install .
       - name: Run test
         run: pytest tests/
