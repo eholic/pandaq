@@ -10,6 +10,8 @@ jobs:
         uses: actions/checkout@v4
       - name: Install library
         run: pip install pandas pytest pytest-cov
+      - name: Install pandaq
+        run: pip install .
       - name: Run test
         run: pytest --cov=pandaq --cov-report=xml tests/
       - name: Upload coverage reports to Codecov
