@@ -27,9 +27,6 @@ dependencies = [
   "pandas"
 ]
 
-[tool.setuptools]
-package-dir = {"" = "src"}
-
 [project.urls]
 Repository = "https://github.com/eholic/pandaq"
 
