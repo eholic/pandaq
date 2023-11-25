@@ -24,6 +24,7 @@ pip install pandaq
 
 <details>
 <summary>1. Generate a query-string</summary>
+  
 ```python
 from pandaq import Q
 import pandas as pd
@@ -34,6 +35,7 @@ df.query(Q().q(PassengerId=1))
 
 <details>
 <summary>2. Extend `pandas.DataFrame` </summary>
+
 ```python
 import pandaq.patch
 import pandas as pd
@@ -42,19 +44,19 @@ df.q(PassengerId=1)
 ```
 </details>
 
-| pandaq.q              | equivalent to query                                 |
-| --------------------- | --------------------------------------------------- |
-| q(a=1)                | "a==1"                                              |
-| q(a=True)             | "a==True"                                           |
-| q(a="text")           | 'a=="text"'                                         |
-| q(a="!text")          | 'a!="text"'                                         |
-| q(a="/text")          | 'a.str.contains("text", regex=True, na=False)'      |
-| q(a="?text")          | 'a.str.contains("text", regex=False, na=False)'     |
-| q(a="!?text")         | 'not a.str.contains("text", regex=False, na=False)' |
-| q(a=[1, 2])           | "a==1 or a==2"                                      |
-| q(a=(">", 1))         | "a>1"                                               |
-| q(a=(">", 1, "<", 3)) | "a>1 and a<3"                                       |
-| q(a=1, b=1)           | "a==1 & b==1"                                       |
+| pandaq.q                | equivalent to query                                   |
+| ----------------------- | ----------------------------------------------------- |
+| `q(a=1)`                | `"a==1"`                                              |
+| `q(a=True)`             | `"a==True"`                                           |
+| `q(a="text")`           | `'a=="text"'`                                         |
+| `q(a="!text")`          | `'a!="text"'`                                         |
+| `q(a="/text")`          | `'a.str.contains("text", regex=True, na=False)'`      |
+| `q(a="?text")`          | `'a.str.contains("text", regex=False, na=False)'`     |
+| `q(a="!?text")`         | `'not a.str.contains("text", regex=False, na=False)'` |
+| `q(a=[1, 2])`           | `"a==1 or a==2"`                                      |
+| `q(a=(">", 1))`         | `"a>1"`                                               |
+| `q(a=(">", 1, "<", 3))` | `"a>1 and a<3"`                                       |
+| `q(a=1, b=1)`           | `"a==1 & b==1"`                                       |
 
 ## License
 
