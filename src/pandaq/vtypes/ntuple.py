@@ -16,9 +16,7 @@ class NTuple(ValueType):
             raise ValueError(msg)
 
         res = []
-        for i in range(n_pairs):
-            opr = self.v[2 * i]
-            val = self.v[2 * i + 1]
+        for opr, val in zip(self.v[::2], self.v[1::2]):
             if isinstance(val, (dt.date, dt.datetime)):
                 val = utils.dtime_to_str(val)
             res.append(f"{self.k}{opr}{val}")

@@ -1,5 +1,7 @@
 import datetime as dt
 
+import pytest
+
 from pandaq import utils
 
 
@@ -24,3 +26,5 @@ def test_dtime_to_str():
         utils.dtime_to_str(dt.datetime(1970, 1, 2, 3, 4, 5, 6000))
         == '"1970-01-02 03:04:05.006000"'
     )
+    with pytest.raises(TypeError, match=r"Unsupported type <class 'str'> for dtime."):
+        utils.dtime_to_str("2022-12-31")
