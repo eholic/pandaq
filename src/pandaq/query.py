@@ -11,24 +11,24 @@ class Q(str):
     """A class used to build a query string from a list of conditions.
 
     Attributes:
-        _qlist (list): A list of conditions to be joined into a query string.
+        _qchain (list): A list of conditions to be joined into a query string.
     """
 
-    def __new__(cls, qlist: list[str] | None = None):
-        """Constructs a new Query instance by joining the conditions in qlist into a query string.
+    def __new__(cls, qchain: list[str] | None = None):
+        """Constructs a new Query instance by joining the conditions in qchain into a query string.
 
         Args:
-            qlist: A list of conditions to be joined into a query string. Defaults to None, which implies an empty list.
+            qchain: A list of conditions to be joined into a query string. Defaults to None, which implies an empty list.
         """
-        _qlist = qlist or []
-        query = utils.join_and(_qlist, no_paren=True)
+        _qchain = qchain or []
+        query = utils.join_and(_qchain, no_paren=True)
         self = str.__new__(cls, query)
-        self._qlist = _qlist
+        self._qchain = _qchain
         return self
 
     def __init__(self, _: list[str] | None = None):
         super().__init__()
-        self._qlist: list[str]
+        self._qchain: list[str]
 
     def q(self, *args, **kwargs) -> str:
         """Converts args to the query string of pd.DataFrame.query.
@@ -41,17 +41,23 @@ class Q(str):
             A query string of pd.DataFrame.query.
         """
         if len(args) == 0:
-            qdict = kwargs
-        elif len(args) == 1 and isinstance(args[0], dict):
-            arg_dict = {}
-            for k, v in args[0].items():
-                arg_dict[f"`{k}`"] = v
-            qdict = {**arg_dict, **kwargs}
+            self._qchain.append(self._qdict_to_str(kwargs))
+        elif len(args) == 1:
+            arg = args[0]
+            if isinstance(arg, str):
+                # Just pass through the string to pd.DataFrame.query
+                self._qchain.append(arg)
+            elif isinstance(arg, dict):
+                qdict = {f"`{k}`": v for k, v in arg.items()}
+                qdict.update(kwargs)
+                self._qchain.append(self._qdict_to_str(qdict))
+            else:
+                raise TypeError("Single argument must be a q-string or dict.")
         else:
-            msg = "argument must be single dict or keyword arguments."
+            msg = "Argument must be a q-string or single dict or keyword arguments."
             raise TypeError(msg)
-        self._qlist.append(self._qdict_to_str(qdict))
-        return Q(self._qlist)
+
+        return Q(self._qchain)
 
     @staticmethod
     def _qdict_to_str(qdict: dict) -> str:
@@ -63,10 +69,10 @@ class Q(str):
         Returns:
             A query string.
         """
-        qlist = []
+        qchain = []
         for k, v in qdict.items():
-            qlist.append(Q._qval_to_query(k, v))
-        return utils.join_and(qlist)
+            qchain.append(Q._qval_to_query(k, v))
+        return utils.join_and(qchain)
 
     @staticmethod
     def _qval_to_query(k: str, v: Any) -> str:
