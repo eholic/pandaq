@@ -5,6 +5,8 @@
 [![PyPI - Version](https://img.shields.io/pypi/v/pandaq.svg)](https://pypi.org/project/pandaq)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pandaq.svg)](https://pypi.org/project/pandaq)
 
+![](./demo.gif)
+
 This library provides `q` method for easy querying of `pandas.DataFrame`.
 Internally, `q` generates the query string for [pandas.DataFrame.query](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.query.html).
 
